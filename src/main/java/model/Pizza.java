@@ -2,6 +2,13 @@ package model;
 
 import java.lang.reflect.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import utils.ToString;
 
 /**
@@ -9,24 +16,36 @@ import utils.ToString;
  * @author rmy17
  *
  */
+@Entity
+@Table(name = "pizzas")
 public class Pizza {
+	@Id
+	@Column(name="ID")
 	private int id;
 	@ToString(upper = true)
+	@Column(name="CODE")
 	private String code;
 	@ToString(upper = true, after = " |")
+	@Column(name="LIBELLE")
 	private String libelle;
 	@ToString(upper = false,after = "\u20AC |")
+	@Column(name="PRIX")
 	private double prix;
 	private static int cpt = 1;
 	@ToString(upper = true, after = "")
+	@Column(name="CATEGORIE")
+	@Enumerated(EnumType.STRING)
 	private CategoriePizza catPizza;
 	
+	
 	public Pizza() {
+		
 		cpt++;
 		this.code = "";
 		this.libelle = "";
 		this.prix = 0;
 		this.catPizza = CategoriePizza.POISSON ;
+		
 	}
 	/**
 	 * Constructor
@@ -172,5 +191,6 @@ public class Pizza {
 	public void setCatPizza(CategoriePizza catPizza) {
 		this.catPizza = catPizza;
 	}
+	
 	
 }

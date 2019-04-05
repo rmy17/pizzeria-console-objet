@@ -4,7 +4,7 @@ public enum CategoriePizza {
 
 	VIANDE("Viande"),
 	POISSON("Poisson"),
-	SANS_VIANDE("Sans Viande");
+	SANS_VIANDE("Sans_Viande");
 	
 	private String nom;
 	

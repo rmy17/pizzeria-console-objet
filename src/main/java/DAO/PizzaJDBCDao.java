@@ -15,7 +15,7 @@ import exception.MySqlSException;
 import model.CategoriePizza;
 import model.Pizza;
 
-public class PizzaBddDoa implements IPizzaDao{
+public class PizzaJDBCDao implements IPizzaDao{
 
 	private ArrayList<Pizza> pizzas;
 	private String url = null;

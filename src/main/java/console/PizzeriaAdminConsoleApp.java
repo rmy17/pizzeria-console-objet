@@ -3,7 +3,8 @@ package console;
 import java.util.Scanner;
 
 import DAO.IPizzaDao;
-import DAO.PizzaBddDoa;
+import DAO.PizzaJDBCDao;
+import DAO.PizzaJPADao;
 import DAO.PizzaFileDao;
 import DAO.PizzaMemDao;
 import Service.MenuFactory;
@@ -17,7 +18,9 @@ public class PizzeriaAdminConsoleApp {
 	public static void main(String[] args) {
 		//IPizzaDao memPizza = new PizzaMemDao();
 		//IPizzaDao filePizza = new PizzaFileDao();
-		IPizzaDao bddPizza = new PizzaBddDoa();
+		//IPizzaDao daoPizza = new PizzaJDBCDao();
+		IPizzaDao daoPizza = new PizzaJPADao();
+		
 		MenuFactory mf = new MenuFactory();
 		Scanner sc = new Scanner(System.in);
 		//test
@@ -25,7 +28,7 @@ public class PizzeriaAdminConsoleApp {
 		//test
 		boolean on = true;
 		while (on == true) {
-			System.out.println("Bonjour !");
+			System.out.println("Bonjour test !");
 			System.out.println("1. Lister les pizza");
 			System.out.println("2. Ajouter une nouvelle pizza");
 			System.out.println("3. Mettre à jour une pizza");
@@ -40,19 +43,19 @@ public class PizzeriaAdminConsoleApp {
 				val = Integer.parseInt(rep);
 				switch (val) {
 				case 1:
-					mf.create("Lister").executeUC(sc, bddPizza);
+					mf.create("Lister").executeUC(sc, daoPizza);
 					break;
 				case 2:
-					mf.create("Ajouter").executeUC(sc, bddPizza);
+					mf.create("Ajouter").executeUC(sc, daoPizza);
 					break;
 				case 3:
-					mf.create("Modifier").executeUC(sc, bddPizza);
+					mf.create("Modifier").executeUC(sc, daoPizza);
 					break;
 				case 4:
-					mf.create("Supprimer").executeUC(sc, bddPizza);
+					mf.create("Supprimer").executeUC(sc, daoPizza);
 					break;
 				case 5:
-					mf.create("Sauvegarder").executeUC(sc,bddPizza);
+					mf.create("Sauvegarder").executeUC(sc,daoPizza);
 				case 99:
 					on = false;
 					System.out.println("Au revoir \u2639");
