@@ -1,7 +1,7 @@
 package DAO;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -10,30 +10,28 @@ import javax.persistence.TypedQuery;
 
 import model.Pizza;
 
+public class PizzaJPADao implements IPizzaDao {
 
-public class PizzaJPADao implements IPizzaDao{
-	
-	//private ArrayList<Pizza> pizzas;
-	
-	
+	// private ArrayList<Pizza> pizzas;
+
 	@Override
 	public List<Pizza> findAllPizzas() {
 		// Etape 1 - Créer une instance d'EntityManagerFactory
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
-				
+
 		// Début d'une unité de travail
 		EntityManager em1 = emf.createEntityManager();
 		// création d'une requête
-		boolean answer =false;
+		boolean answer = false;
 		TypedQuery<Pizza> requete = em1.createQuery("SELECT p from Pizza p", Pizza.class);
-		
+
 		List<Pizza> pizzas = requete.getResultList();
 		if (requete != null)
 			answer = true;
 		em1.close();
 		emf.close();
 		System.out.println(answer);
-		return pizzas; 
+		return pizzas;
 	}
 
 	@Override
@@ -49,7 +47,7 @@ public class PizzaJPADao implements IPizzaDao{
 
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) {
-		/*
+
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
 		EntityManager em1 = emf.createEntityManager();
 		TypedQuery<Pizza> requete = em1.createQuery("SELECT p from Pizza p where p.code = codePizza", Pizza.class);
@@ -57,13 +55,12 @@ public class PizzaJPADao implements IPizzaDao{
 		pi.setCode(pizza.getCode());
 		pi.setLibelle(pizza.getLibelle());
 		pi.setPrix(pizza.getPrix());
-		
 		EntityTransaction et = em1.getTransaction();
 		et.begin();
 		em1.merge(pi);
 		et.commit();
 		em1.close();
-		*/
+
 	}
 
 	@Override
@@ -71,20 +68,32 @@ public class PizzaJPADao implements IPizzaDao{
 		// TODO Auto-generated method stub
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
 		EntityManager em1 = emf.createEntityManager();
-		TypedQuery<Pizza> requete = em1.createQuery("SELECT p from Pizza p where p.code = codePizza", Pizza.class);
+		TypedQuery<Pizza> requete = em1.createQuery("DELETE FROM Pizza p WHERE p.CODE=codePizza", Pizza.class);
+		requete.executeUpdate();
+		em1.close();
 	}
 
 	@Override
 	public Pizza findPizzaByCode(String codePizza) {
 		// TODO Auto-generated method stub
-		return null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
+		EntityManager em1 = emf.createEntityManager();
+		Pizza p = em1.find(Pizza.class, codePizza);
+		return p;
+
 	}
 
 	@Override
 	public boolean pizzaExists(String codePizza) {
 		// TODO Auto-generated method stub
-		return false;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
+		EntityManager em1 = emf.createEntityManager();
+		Pizza p = em1.find(Pizza.class, codePizza);
+		if (p != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	
 }
