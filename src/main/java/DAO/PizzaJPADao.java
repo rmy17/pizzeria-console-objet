@@ -75,25 +75,30 @@ public class PizzaJPADao implements IPizzaDao {
 
 	@Override
 	public Pizza findPizzaByCode(String codePizza) {
-		// TODO Auto-generated method stub
+		Pizza p1 = new Pizza();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
 		EntityManager em1 = emf.createEntityManager();
-		Pizza p = em1.find(Pizza.class, codePizza);
-		return p;
-
+		TypedQuery<Pizza> requete = em1.createQuery("SELECT p FROM Pizza p", Pizza.class);
+		List<Pizza> pizzas = requete.getResultList();
+		for(Pizza p : pizzas) {
+			if (p.getCode().equals(codePizza))
+				p1	= em1.find(Pizza.class, p.getId());
+			}
+		 return p1;
 	}
 
 	@Override
 	public boolean pizzaExists(String codePizza) {
-		// TODO Auto-generated method stub
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
 		EntityManager em1 = emf.createEntityManager();
-		Pizza p = em1.find(Pizza.class, codePizza);
-		if (p != null) {
-			return true;
-		} else {
-			return false;
+		TypedQuery<Pizza> requete = em1.createQuery("SELECT p FROM Pizza p", Pizza.class);
+		List<Pizza> pizzas = requete.getResultList();
+		for(Pizza p : pizzas) {
+			if (p.getCode().equals(codePizza)) {
+				return true;
+			}
 		}
+		return false;
 	}
 
 }
