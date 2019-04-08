@@ -12,13 +12,11 @@ import model.Pizza;
 
 public class PizzaJPADao implements IPizzaDao {
 
-	// private ArrayList<Pizza> pizzas;
+	// Etape 1 - Créer une instance d'EntityManagerFactory
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
 
 	@Override
 	public List<Pizza> findAllPizzas() {
-		// Etape 1 - Créer une instance d'EntityManagerFactory
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
-
 		// Début d'une unité de travail
 		EntityManager em1 = emf.createEntityManager();
 		// création d'une requête
@@ -36,7 +34,6 @@ public class PizzaJPADao implements IPizzaDao {
 
 	@Override
 	public void saveNewPizza(Pizza pizza) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
 		EntityManager em1 = emf.createEntityManager();
 		EntityTransaction et = em1.getTransaction();
 		et.begin();
@@ -47,8 +44,6 @@ public class PizzaJPADao implements IPizzaDao {
 
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) {
-
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
 		EntityManager em1 = emf.createEntityManager();
 		TypedQuery<Pizza> requete = em1.createQuery("SELECT p from Pizza p where p.code = codePizza", Pizza.class);
 		Pizza pi = requete.getSingleResult();
@@ -80,20 +75,20 @@ public class PizzaJPADao implements IPizzaDao {
 		EntityManager em1 = emf.createEntityManager();
 		TypedQuery<Pizza> requete = em1.createQuery("SELECT p FROM Pizza p", Pizza.class);
 		List<Pizza> pizzas = requete.getResultList();
-		for(Pizza p : pizzas) {
+		for (Pizza p : pizzas) {
 			if (p.getCode().equals(codePizza))
-				p1	= em1.find(Pizza.class, p.getId());
-			}
-		 return p1;
+				p1 = em1.find(Pizza.class, p.getId());
+		}
+		return p1;
 	}
 
 	@Override
 	public boolean pizzaExists(String codePizza) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
+
 		EntityManager em1 = emf.createEntityManager();
 		TypedQuery<Pizza> requete = em1.createQuery("SELECT p FROM Pizza p", Pizza.class);
 		List<Pizza> pizzas = requete.getResultList();
-		for(Pizza p : pizzas) {
+		for (Pizza p : pizzas) {
 			if (p.getCode().equals(codePizza)) {
 				return true;
 			}

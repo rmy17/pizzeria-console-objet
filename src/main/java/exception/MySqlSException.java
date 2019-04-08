@@ -1,12 +1,10 @@
 package exception;
 
-
-public class MySqlSException extends RuntimeException{
+public class MySqlSException extends RuntimeException {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 
 	public MySqlSException(String msg) {
 		super(msg);
@@ -16,12 +14,12 @@ public class MySqlSException extends RuntimeException{
 		super(e);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public MySqlSException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public MySqlSException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
@@ -31,7 +29,5 @@ public class MySqlSException extends RuntimeException{
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 }
