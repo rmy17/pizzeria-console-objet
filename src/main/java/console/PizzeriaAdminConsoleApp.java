@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import DAO.IPizzaDao;
-import DAO.PizzaJPADao;
+import DAO.PizzaMemDao;
 import Service.MenuFactory;
 import exception.SavePizzaException;
 import exception.StockageException;
@@ -17,10 +17,10 @@ public class PizzeriaAdminConsoleApp {
 	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 
 	public static void main(String[] args) {
-		// IPizzaDao memPizza = new PizzaMemDao();
+		IPizzaDao daoPizza = new PizzaMemDao();
 		// IPizzaDao filePizza = new PizzaFileDao();
 		// IPizzaDao daoPizza = new PizzaJDBCDao();
-		IPizzaDao daoPizza = new PizzaJPADao();
+		// IPizzaDao daoPizza = new PizzaJPADao();
 
 		MenuFactory mf = new MenuFactory();
 		Scanner sc = new Scanner(System.in);

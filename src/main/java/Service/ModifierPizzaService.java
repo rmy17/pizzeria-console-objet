@@ -8,7 +8,7 @@ import exception.UpdatePizzaException;
 import model.CategoriePizza;
 import model.Pizza;
 
-public class ModifierPizzaService extends MenuService{
+public class ModifierPizzaService extends MenuService {
 
 	@Override
 	public void executeUC(Scanner scanner, IPizzaDao memPizza) throws StockageException {
@@ -18,20 +18,20 @@ public class ModifierPizzaService extends MenuService{
 		l.executeUC(scanner, memPizza);
 		System.out.println("Veuillez choisir le code de la pizza à modifier.");
 		String code = scanner.nextLine();
+		if (memPizza.pizzaExists(code) == false) {
+			throw new UpdatePizzaException("Le code rentré ne correspond à aucune pizza !");
+		}
 		System.out.println("Veuillez saisir le nouveau code");
 		String newCode = scanner.nextLine();
 		System.out.println("Veuillez saisir le nouveau nom (sans espace)");
 		String newNom = scanner.nextLine();
+		System.out.println("Veuillez saisir le nouveau prix");
 		String newPrixStr = scanner.nextLine();
 		Double newPrix = Double.parseDouble(newPrixStr);
-		if (memPizza.pizzaExists(code) == false) {
-			throw new UpdatePizzaException("Le code rentré ne correspond à aucune pizza !");
-		}
 		System.out.println("Veuillez saisir la nouvelle categorie !");
 		String newCat = scanner.nextLine();
 		CategoriePizza cat = CategoriePizza.valueOf(newCat);
 		memPizza.updatePizza(code, new Pizza(newCode, newNom, newPrix, cat));
 	}
 
-	
 }
