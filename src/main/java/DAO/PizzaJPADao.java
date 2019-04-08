@@ -60,8 +60,6 @@ public class PizzaJPADao implements IPizzaDao {
 
 	@Override
 	public void deletePizza(String codePizza) {
-		// TODO Auto-generated method stub
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
 		EntityManager em1 = emf.createEntityManager();
 		TypedQuery<Pizza> requete = em1.createQuery("DELETE FROM Pizza p WHERE p.CODE=codePizza", Pizza.class);
 		requete.executeUpdate();
@@ -71,7 +69,6 @@ public class PizzaJPADao implements IPizzaDao {
 	@Override
 	public Pizza findPizzaByCode(String codePizza) {
 		Pizza p1 = new Pizza();
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
 		EntityManager em1 = emf.createEntityManager();
 		TypedQuery<Pizza> requete = em1.createQuery("SELECT p FROM Pizza p", Pizza.class);
 		List<Pizza> pizzas = requete.getResultList();
@@ -84,7 +81,6 @@ public class PizzaJPADao implements IPizzaDao {
 
 	@Override
 	public boolean pizzaExists(String codePizza) {
-
 		EntityManager em1 = emf.createEntityManager();
 		TypedQuery<Pizza> requete = em1.createQuery("SELECT p FROM Pizza p", Pizza.class);
 		List<Pizza> pizzas = requete.getResultList();
