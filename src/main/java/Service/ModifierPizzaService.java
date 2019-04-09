@@ -10,13 +10,15 @@ import model.Pizza;
 
 public class ModifierPizzaService extends MenuService {
 
+	ListerPizzasService listerPizzaService = new ListerPizzasService();
+
 	@Override
 	public void executeUC(Scanner scanner, IPizzaDao memPizza) throws StockageException {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println("Mise à jour d'une pizza");
-			ListerPizzasService l = new ListerPizzasService();
-			l.executeUC(scanner, memPizza);
+
+			listerPizzaService.executeUC(scanner, memPizza);
 			System.out.println("Veuillez choisir le code de la pizza à modifier.");
 			String code = scanner.nextLine().toUpperCase();
 			if (memPizza.pizzaExists(code) == false) {
@@ -33,11 +35,18 @@ public class ModifierPizzaService extends MenuService {
 			String newCat = scanner.nextLine().toUpperCase();
 			CategoriePizza cat = CategoriePizza.valueOf(newCat);
 			memPizza.updatePizza(code, new Pizza(newCode, newNom, newPrix, cat));
-		}catch(NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			throw new StockageException("Veuillez donner un nombre correct !");
-		}catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			throw new StockageException("Veuillez donner une categorie valide (VIANDE, SANS_VIANDE ou POISSON !");
 		}
 	}
-}
 
+	/**
+	 * @param listerPizzaService the listerPizzaService to set
+	 */
+	public void setListerPizzaService(ListerPizzasService listerPizzaService) {
+		this.listerPizzaService = listerPizzaService;
+	}
+
+}

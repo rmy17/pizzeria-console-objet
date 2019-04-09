@@ -1,7 +1,7 @@
 package exception;
 
 @SuppressWarnings("serial")
-public class SavePizzaException extends StockageException {
+public class SavePizzaException extends RuntimeException {
 
 	public static int u;
 

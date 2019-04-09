@@ -2,6 +2,7 @@ package DAO;
 
 import java.util.ArrayList;
 
+import exception.SavePizzaException;
 import model.CategoriePizza;
 import model.Pizza;
 
@@ -39,7 +40,10 @@ public class PizzaMemDao implements IPizzaDao {
 
 	@Override
 	public void saveNewPizza(Pizza pizza) {
-		pizzas.add(pizza);
+		if (pizza.getCode().length() != 3) {
+			pizzas.add(pizza);
+		}
+		throw new SavePizzaException("oops code différent de 3 caractères");
 	}
 
 	@Override
